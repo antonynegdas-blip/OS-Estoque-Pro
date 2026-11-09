@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="55%" stop-color="#1E1B4B" />
+      <stop offset="100%" stop-color="#312E81" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="34" y1="34" x2="54" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Machined Squircle -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGrad)" stroke="#4F46E5" stroke-width="1.5" stroke-opacity="0.45" />
+  <rect x="5" y="5" width="54" height="54" rx="13" stroke="#FFFFFF" stroke-width="0.75" stroke-opacity="0.12" />
+
+  <!-- Isometric Inventory Cube Silhouette (Subtle Background Grid) -->
+  <path d="M32 13L49 22.8V42.2L32 52L15 42.2V22.8L32 13Z" stroke="url(#accentGrad)" stroke-width="1.75" stroke-opacity="0.28" stroke-linejoin="round" />
+  <path d="M15 22.8L32 32.5L49 22.8M32 32.5V52" stroke="url(#accentGrad)" stroke-width="1.25" stroke-opacity="0.2" stroke-linejoin="round" />
+
+  <!-- Precision Technical Wrench Icon -->
+  <path d="M40.8 17.5C37.2 17.5 34.1 19.6 32.7 22.7C32.2 23.8 32.4 25.1 33.2 25.9L20.1 39C18.3 40.8 18.3 43.7 20.1 45.5C21.9 47.3 24.8 47.3 26.6 45.5L39.7 32.4C40.5 33.2 41.8 33.4 42.9 32.9C46 31.5 48.1 28.4 48.1 24.8C48.1 23.9 47.9 23.1 47.6 22.3L43.5 26.4L39.6 25.4L38.6 21.5L42.7 17.4C42.1 17.5 41.4 17.5 40.8 17.5Z" fill="url(#accentGrad)" />
+
+  <!-- Status Active Pulse Node -->
+  <circle cx="46" cy="46" r="6" fill="#0F172A" />
+  <circle cx="46" cy="46" r="4" fill="url(#amberGrad)" />
+</svg>
