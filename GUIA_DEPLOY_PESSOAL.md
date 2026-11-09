@@ -127,3 +127,4 @@ Se precisar conferir ou alterar a senha do Supabase:
   ```bash
   python manage.py createsuperuser
   ```
+

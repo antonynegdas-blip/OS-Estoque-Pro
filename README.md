@@ -260,3 +260,4 @@ Distribuído sob a licença **MIT**. Veja `LICENSE` para mais informações.
 <div align="center">
   Desenvolvido com foco em arquitetura limpa, segurança e alta performance.
 </div>
+
