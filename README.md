@@ -15,8 +15,8 @@
     <a href="#-arquitetura--fluxo-de-dados">Arquitetura</a> •
     <a href="#-tecnologias-utilizadas">Stack</a> •
     <a href="#-segurança--auditoria">Segurança</a> •
-    <a href="#-como-executar-localmente">Execução Local</a> •
-    <a href="#-testes-automatizados">Testes</a>
+    <a href="#-testes-automatizados">Testes</a> •
+    <a href="#-estrutura-de-diretórios">Estrutura</a>
   </p>
 
   <p align="center">
@@ -169,56 +169,6 @@ test_seguranca_admin_nao_pode_excluir_propria_conta ... ok
 ...
 Ran 23 tests in 12.0s - OK
 ```
-
----
-
-## 💻 Como Executar Localmente
-
-### Pré-requisitos
-* **Python 3.11+** e **Node.js 18+** instalados.
-* Git.
-
-### 1. Clonar o Repositório
-```bash
-git clone https://github.com/SEU_USUARIO/os-estoque-pro.git
-cd os-estoque-pro
-```
-
-### 2. Configurar e Iniciar o Backend
-```bash
-cd backend
-
-# Criar e ativar o ambiente virtual
-python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
-
-# Instalar dependências
-pip install -r requirements.txt
-
-# Configurar variáveis de ambiente
-cp .env.example .env
-# (Opcional: Se deixar DATABASE_URL vazio, o Django utilizará SQLite local)
-
-# Executar migrações
-python manage.py migrate
-
-# Iniciar servidor de desenvolvimento
-python manage.py runserver
-```
-O backend estará acessível em: `http://localhost:8000`
-
-### 3. Configurar e Iniciar o Frontend
-Em outro terminal:
-```bash
-cd frontend
-
-# Instalar dependências
-npm install
-
-# Iniciar servidor Vite
-npm run dev
-```
-O frontend estará acessível em: `http://localhost:5173`
 
 ---
 
