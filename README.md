@@ -10,7 +10,7 @@
   </p>
 
   <p align="center">
-    <a href="#-demonstração--credenciais-de-acesso">Demonstração</a> •
+    <a href="#-controle-de-acesso--perfis-operacionais-rbac">Perfis & RBAC</a> •
     <a href="#-principais-recursos--diferenciais">Diferenciais</a> •
     <a href="#-arquitetura--fluxo-de-dados">Arquitetura</a> •
     <a href="#-tecnologias-utilizadas">Stack</a> •
@@ -41,18 +41,18 @@ O sistema integra a abertura do chamado técnico à baixa física imediata no es
 
 ---
 
-## 🚀 Demonstração & Credenciais de Acesso
+## 👥 Controle de Acesso & Perfis Operacionais (RBAC)
 
-O sistema dispõe de controle granular de acesso (**RBAC - Role-Based Access Control**) com 4 perfis distintos. Para fins de avaliação de recrutadores e demonstração técnica:
+O sistema implementa uma política rigorosa de segregação de funções (**Role-Based Access Control**), garantindo integridade de dados e conformidade operacional de acordo com as responsabilidades de cada colaborador:
 
-> 💡 **Acesso com 1 Clique (Modo Observação):** Na tela inicial de login, utilize o botão **"Explorar como Visitante"**. Ele inicia uma sessão segura de somente leitura com dados mascarados (LGPD).
+| Perfil | Escopo Operacional & Responsabilidades |
+| :--- | :--- |
+| **Administrador** | Gestão estratégica e financeira completa, auditoria geral, gerenciamento de equipe/operadores, exclusão de registros e parametrizações globais do sistema. |
+| **Técnico** | Execução e avanço das Ordens de Serviço em bancada, emissão de laudos técnicos periciais, requisição e movimentação física de peças no estoque. |
+| **Atendente** | Recepção e atendimento a clientes, abertura de chamados técnicos, elaboração de orçamentos preliminares e consulta de disponibilidade de catálogo. |
+| **Visitante** | Modo de observação/demonstração com permissão exclusiva de leitura e mascaramento automático de dados sensíveis e PII (LGPD). |
 
-| Perfil | Usuário | Senha | Permissões & Escopo |
-| :--- | :--- | :--- | :--- |
-| **Administrador** | `certa` | `Totinhasbanco1234@` | Acesso total: gestão financeira, equipe, exclusões e parametrizações |
-| **Técnico** | `tecnico` | `Totinhastecnico1234@` | Execução de O.S., emissão de laudos técnicos e movimentação de estoque |
-| **Atendente** | `atendente` | `Totinhasatendente1234@` | Cadastro de clientes, abertura de orçamentos e consulta de peças |
-| **Visitante** | `visitante` | `visitante123` | **Modo Demonstração:** Leitura restrita, PII mascarado e mutações bloqueadas |
+> 💡 A tela de autenticação dispõe de acesso simplificado para visitantes em modo de observação segura, permitindo navegar pelo sistema para avaliação técnica sem comprometer dados operacionais.
 
 ---
 
