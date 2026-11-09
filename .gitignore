@@ -11,6 +11,10 @@ frontend/.env
 frontend/.env.*
 !frontend/.env.example
 
+# Documentação & Guias Pessoais de Deploy
+GUIA_DEPLOY_PESSOAL.md
+guia_deploy_pessoal.md
+
 # ==========================================
 # Python & Django
 # ==========================================

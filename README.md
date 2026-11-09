@@ -194,7 +194,7 @@ os-estoque-pro/
 │   ├── public/               # Favicon vetorial e manifest
 │   └── vercel.json           # Configuração de rewrites SPA para a Vercel
 ├── render.yaml               # Infraestrutura como Código (Blueprint Render)
-├── GUIA_DEPLOY_PESSOAL.md    # Guia pessoal passo a passo de deploy
+├── LICENSE                   # Licença MIT
 ├── .gitignore                # Regras de proteção de credenciais e caches
 └── README.md                 # Documentação principal de apresentação
 ```
