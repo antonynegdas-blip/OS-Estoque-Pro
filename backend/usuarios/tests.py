@@ -104,3 +104,50 @@ class AuthUsuariosTestCase(TestCase):
         res = self.client.delete(f'/api/usuarios/{self.admin.id}/')
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue(Usuario.objects.filter(pk=self.admin.id).exists())
+
+    def test_bloqueio_apos_5_tentativas_invalidas(self):
+        """SEC-005: Após 5 tentativas incorretas, deve bloquear temporariamente por 30 minutos."""
+        url = reverse('token_obtain_pair')
+
+        # Tentativas 1 a 4: devem retornar 401 informando as tentativas restantes
+        for i in range(1, 5):
+            res = self.client.post(url, {
+                'username': 'admin_test',
+                'password': 'senha_errada'
+            }, format='json', REMOTE_ADDR='192.168.1.100')
+            self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+            self.assertIn(f'{5 - i} tentativa(s)', res.data['detail'])
+
+        # 5ª tentativa: atinge o limite e bloqueia por 30 minutos (HTTP 429)
+        res_bloqueio = self.client.post(url, {
+            'username': 'admin_test',
+            'password': 'senha_errada'
+        }, format='json', REMOTE_ADDR='192.168.1.100')
+        self.assertEqual(res_bloqueio.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+        self.assertIn('Acesso temporariamente bloqueado', res_bloqueio.data['detail'])
+        self.assertIn('30 minutos', res_bloqueio.data['detail'])
+
+        # 6ª tentativa imediata: rejeitada diretamente com status 429 sem checar senha
+        res_bloqueado = self.client.post(url, {
+            'username': 'admin_test',
+            'password': 'password123'  # mesmo com senha certa, está em lockout
+        }, format='json', REMOTE_ADDR='192.168.1.100')
+        self.assertEqual(res_bloqueado.status_code, status.HTTP_429_TOO_MANY_REQUESTS)
+        self.assertIn('Acesso temporariamente bloqueado', res_bloqueado.data['detail'])
+
+    def test_login_sucesso_reseta_contador_tentativas(self):
+        """Tentativas incorretas anteriores devem ser apagadas após um login bem-sucedido."""
+        url = reverse('token_obtain_pair')
+
+        # 2 erros
+        self.client.post(url, {'username': 'admin_test', 'password': 'errada'}, format='json', REMOTE_ADDR='192.168.1.101')
+        self.client.post(url, {'username': 'admin_test', 'password': 'errada'}, format='json', REMOTE_ADDR='192.168.1.101')
+
+        # 1 sucesso
+        res_sucesso = self.client.post(url, {'username': 'admin_test', 'password': 'password123'}, format='json', REMOTE_ADDR='192.168.1.101')
+        self.assertEqual(res_sucesso.status_code, status.HTTP_200_OK)
+
+        # Próxima tentativa incorreta deve começar do 1 novamente (restando 4)
+        res_novo_erro = self.client.post(url, {'username': 'admin_test', 'password': 'errada'}, format='json', REMOTE_ADDR='192.168.1.101')
+        self.assertEqual(res_novo_erro.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('4 tentativa(s)', res_novo_erro.data['detail'])

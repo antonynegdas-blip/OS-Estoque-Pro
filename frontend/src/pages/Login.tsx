@@ -37,8 +37,13 @@ export const Login: React.FC = () => {
       const { access, refresh } = response.data;
       await login(access, refresh);
       navigate('/dashboard');
-    } catch {
-      setErro('Não foi possível iniciar a sessão de visitante no momento.');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err) {
+        const responseError = err as { response?: { data?: { detail?: string } } };
+        setErro(responseError.response?.data?.detail || 'Não foi possível iniciar a sessão de visitante no momento.');
+      } else {
+        setErro('Não foi possível iniciar a sessão de visitante no momento.');
+      }
     } finally {
       setCarregandoVisitante(false);
     }
@@ -57,12 +62,16 @@ export const Login: React.FC = () => {
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const responseError = err as { response?: { status?: number; data?: { detail?: string } } };
-        if (responseError.response?.status === 401) {
+        const detailMessage = responseError.response?.data?.detail;
+
+        if (detailMessage) {
+          setErro(detailMessage);
+        } else if (responseError.response?.status === 401) {
           setErro('Credenciais inválidas. Verifique seu usuário e senha.');
         } else if (responseError.response?.status === 429) {
-          setErro('Muitas tentativas de acesso. Aguarde um minuto e tente novamente.');
+          setErro('Limite de requisições excedido. Por segurança, aguarde alguns instantes e tente novamente.');
         } else {
-          setErro(responseError.response?.data?.detail || 'Erro ao conectar ao servidor.');
+          setErro('Erro ao conectar ao servidor.');
         }
       } else {
         setErro('Falha na conexão com o servidor.');
@@ -188,9 +197,17 @@ export const Login: React.FC = () => {
               {erro && (
                 <div
                   role="alert"
-                  className="mb-6 p-3.5 bg-rose-500/10 border border-rose-500/30 rounded-2xl flex items-center gap-3 text-rose-300 text-xs font-medium"
+                  className={`mb-6 p-3.5 rounded-2xl flex items-center gap-3 text-xs font-medium border ${
+                    erro.toLowerCase().includes('bloqueado')
+                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-200'
+                      : 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+                  }`}
                 >
-                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                  <AlertCircle
+                    className={`w-4 h-4 shrink-0 ${
+                      erro.toLowerCase().includes('bloqueado') ? 'text-amber-400' : 'text-rose-400'
+                    }`}
+                  />
                   <span>{erro}</span>
                 </div>
               )}
