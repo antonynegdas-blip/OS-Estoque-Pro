@@ -19,3 +19,4 @@ class SustainedAnonRateThrottle(AnonRateThrottle):
 class SustainedUserRateThrottle(UserRateThrottle):
     """Limite sustentado por minuto para tráfego autenticado."""
     scope = 'user_sustained'
+
